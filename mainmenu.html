@@ -133,19 +133,60 @@ th{
 
 
 <script>
-  function addToCart(data){
-      var idProduct = data.id;
-           
-          
-      var img = document.getElementById(idProduct).children[0]
-      var title = document.getElementById(idProduct).children[1].children[0].innerHTML;
-      var price = document.getElementById(idProduct).children[2].children[0].innerHTML;
+  let cart = [];
 
-      console.log(title);
+  function addToCart(data) {
+    var idProduct = data.id;
+    var img = document.getElementById(idProduct).getElementsByTagName('img')[0].src;
+    var title = document.getElementById(idProduct).getElementsByClassName('title')[0].innerHTML;
+    var price = document.getElementById(idProduct).getElementsByClassName('price')[0].innerText;
 
-      document.getElementById("shoppingCart").innerHTML += '<div class"item4"><img src="'+ img.src + '" style="width:50px; heihgt:50px;">' + title +'</div>'
-      
+    let found = cart.find(item => item.id === idProduct);
+    if (found) {
+      found.quantity += 1;
+    } else {
+      cart.push({ id: idProduct, img: img, title: title, price: price, quantity: 1 });
+    }
+
+    updateCartDisplay();
   }
+
+  function updateCartDisplay() {
+    let cartHtml = '';
+    cart.forEach((item, index) => {
+      cartHtml += `
+        <div class="cart-item">
+          <img src="${item.img}" style="width:50px; height:50px;">
+          <span>${item.title}</span>
+          <span>${item.price}</span>
+          <span>Quantity: ${item.quantity}</span>
+          <button onclick="increaseQuantity(${index})">+</button>
+          <button onclick="decreaseQuantity(${index})">-</button>
+          <button onclick="removeItem(${index})">Remove</button>
+        </div>`;
+    });
+    document.getElementById("shoppingCart").innerHTML = cartHtml;
+  }
+
+  function increaseQuantity(index) {
+    cart[index].quantity += 1;
+    updateCartDisplay();
+  }
+
+  function decreaseQuantity(index) {
+    if (cart[index].quantity > 1) {
+      cart[index].quantity -= 1;
+    } else {
+      cart.splice(index, 1); // Remove the item from the cart if quantity is 0
+    }
+    updateCartDisplay();
+  }
+
+  function removeItem(index) {
+    cart.splice(index, 1); // Remove the item from the cart
+    updateCartDisplay();
+  }
+</script>
 
  
   
