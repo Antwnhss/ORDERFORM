@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery-3.7.1.min.js"></script>
+
+      <title>Κυρίως Πιάτο</title>
+  
+<style>
+
+body{
+  background-image: url(images/backgroundimage_2.jpg);
+}  
+
+.item1 {
+  grid-area: header;
+}
+
+.item2 {
+  grid-area: menu;
+  max-width: 780px; 
+}
+
+.item3 {
+   grid-area: main;
+   }
+
+.item4 {
+  grid-area: right;
+  min-height: 250px;    
+  }
+
+.item5 {
+   grid-area: footer;
+  }
+
+.grid-container {
+  margin: 6% 12% 5% 12%;
+  display: grid;
+  grid-template-areas:
+  'header header header header header header'
+  'menu right right right right right'
+  'menu main main main main main'
+  'footer footer footer footer footer footer';
+  gap: 5px;
+  background-color: #6face1;
+  padding: 5px;
+}
+
+.grid-container > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  padding: 5px 0;
+  font-size: 20px;
+} 
+
+th{
+  font-size: 15px;
+  
+}
+ td{
+  font-size: 14px;
+  padding-left: 15px;
+ }
+
+ 
+</style>
+</head>
+<body>
+
+ <div class="grid-container"> 
+  <div class="item1">
+   <div class="dropdown">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Επιλογή</a>    
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="savouries.html">Επιδόρπιο</a></li>
+        <li><a class="dropdown-item" href="mainmenu.html">Κυρίως Πιάτο</a></li>
+        <li><a class="dropdown-item" href="beverages.html">Ποτά</a></li>
+      </ul>
+   </div>
+  </div>
+  
+
+  <div class="item2">   
+    <table class="mainmenu"> 
+      <tr id="spagheti"  style="width: 100%;">
+        <td><img src="images/spagheti.jpg"/></td>
+        <th class="title">Σπαγγέτι με<br> Χειροποίητη σάλτσα από<br> φρέσκες ντομάτες</th>
+        <td class="price"><h5>5.5€</h5></td>
+        <td><button onclick="addToCart(document.getElementById('spagheti'))">Προσθήκη</button></td>        
+      </tr>     
+                
+      <tr id="pizza"  style="width: 100%;">
+        <td><img src="images/pizza.jpg"/></td>
+        <th class="title">Πίτσα σπέσιαλ<br>(Σαλτσα,Ζαμπόν,Κασέρι,Μπέικον,Πιπεριά)</th>
+        <td class="price"><h5>8.5€</h5></td>
+        <td><button onclick="addToCart(document.getElementById('pizza'))">Προσθήκη</button></td>            
+      </tr>
+    
+      <tr id="peinirli"  style="width: 100%;">
+        <td><img src="images/peinirli.jpg"/></td>
+        <th class="title">Πεϊνιρλι με κιμά<br>Χειροποίητη γέμιση μοσχαρίσιου κιμά</th>
+        <td class="price"><h5>4.5€</h5></td>
+        <td><button onclick="addToCart(document.getElementById('peinirli'))">Προσθήκη</button></td>
+      </tr>
+    </table>               
+   </div>  
+  
+
+  
+    <div class="item3">   
+      <p>Συνολικό Ποσό</p>               
+    </div>      
+  
+
+   
+  <div class="item4" id="shoppingCart">
+   <p>Παραγγελία</p>   
+  
+  </div>
+
+
+  <div class="item5">
+    <button>Αποστολή</button>      
+  </div>
+</div>
+
+
+<script>
+  function addToCart(data){
+      var idProduct = data.id;
+           
+          
+      var img = document.getElementById(idProduct).children[0]
+      var title = document.getElementById(idProduct).children[1].children[0].innerHTML;
+      var price = document.getElementById(idProduct).children[2].children[0].innerHTML;
+
+      console.log(title);
+
+      document.getElementById("shoppingCart").innerHTML += '<div class"item4"><img src="'+ img.src + '" style="width:50px; heihgt:50px;">' + title +'</div>'
+      
+  }
+
+ 
+  
+
+</script>
+
+
+
+</body>
+</html>
